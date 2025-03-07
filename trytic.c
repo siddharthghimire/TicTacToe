@@ -2,16 +2,16 @@
 #include <conio.h>  
 #include <stdlib.h> 
 
-#define SIZE 3
 
-void printBoard(char board[SIZE][SIZE], int X, int Y,char move) {
+
+void printBoard(char board[3][3], int X, int Y,char move) {
     system("cls");  
-    
-    printf("\nUse Arrow Keys to Move, Enter to Place X/O\n");
+    printf("Player %c's Turn\n",move);
+    printf("\nUse Arrow Keys to Move, Enter to Place X/O\n\n");
    
     // Printing the Tic-Tac-Toe layout
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
             if (i == Y && j == X) {
                 printf(" .%c. ", board[i][j]);  // Highlight selected cell
             } else {
@@ -31,8 +31,8 @@ void printBoard(char board[SIZE][SIZE], int X, int Y,char move) {
     printf("\nUse Arrow Keys to Navigate Through the Board\n");
 }
 
-int checkWinner(char board[SIZE][SIZE], char move) {
-    for (int i = 0; i < SIZE; i++) {
+int checkWinner(char board[3][3], char move) {
+    for (int i = 0; i < 3; i++) {
         if ((board[i][0] == move && board[i][1] == move && board[i][2] == move) || 
             (board[0][i] == move && board[1][i] == move && board[2][i] == move)) {
             return 1;//check row and column
@@ -45,16 +45,16 @@ int checkWinner(char board[SIZE][SIZE], char move) {
     return 0;
 }
 
-int isDraw(char board[SIZE][SIZE]) {
-    for (int i = 0; i < SIZE; i++)
-        for (int j = 0; j < SIZE; j++)
+int isDraw(char board[3][3]) {
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
             if (board[i][j] == ' ')//if empty space is found the game must go on
                 return 0;
     return 1;//else we return true as all space are occupied
 }
 
 int main() {
-    char board[SIZE][SIZE] =
+    char board[3][3] =
 	 { 
 	 {' ', ' ', ' '}, 
 	 {' ', ' ', ' '}, 
@@ -71,9 +71,9 @@ int main() {
         if (key == 224) {  // Arrow key detected(ASCII)
             key = getch();
             if (key == 72 && Y > 0) Y--; // Up
-            if (key == 80 && Y < SIZE - 1)Y++; // Down
+            if (key == 80 && Y < 2)Y++; // Down
             if (key == 75 && X > 0) X--; // Left
-            if (key == 77 && X < SIZE - 1) X++; // Right
+            if (key == 77 && X < 2) X++; // Right
         } 
         else if (key == 13) {  // Enter key to place move
             if (board[Y][X] == ' ') {
@@ -81,7 +81,7 @@ int main() {
                 
                 if (checkWinner(board, move)) {
                     printBoard(board, X, Y,move);
-                    printf("\n?? Player %c wins! ??\n", move);
+                    printf("\n Player %c wins! \n", move);
                     break;
                 }
 
