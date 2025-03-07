@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <conio.h>
 #include <dos.h> // Needed for bioskey()
-#include<stdlib.h>
 void printBoard(char board[3][3], int X, int Y, char move) {
 	int i,j;
     system("cls");  // Use Turbo C's screen clear function
@@ -11,7 +10,7 @@ void printBoard(char board[3][3], int X, int Y, char move) {
     for (i = 0; i < 3; ++i) {
         for (j = 0; j < 3; ++j) {
             if (i == Y && j == X) {
-                cprintf(" .%c. ", board[i][j]);  // Highlight selected cell
+                cprintf(" .%c. ", board[i][j]);  // navigation
             } else {
 		printf("  %c  ", board[i][j]);
 	    }
@@ -45,11 +44,14 @@ int checkWinner(char board[3][3], char move) {
 
 int isDraw(char board[3][3]) {
 	int i,j;
-    for (i = 0; i < 3; i++)
-        for (j = 0; j < 3; j++)
-            if (board[i][j] == ' ') // If empty space is found, the game must go on
+    for (i = 0; i < 3; i++){
+        for (j = 0; j < 3; j++){
+            if (board[i][j] == ' '){ // The game must go on
                 return 0;
-    return 1;
+               }
+             }
+           }
+    return 1;//or end it
 }
 
 int main() {
